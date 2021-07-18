@@ -1,0 +1,15 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8000/eureka/
+
+spring:
+  application:
+    name: users-client
+
+users:
+    url: https://jsonplaceholder.typicode.com/users
+
+server:
+  port: 8001
+
