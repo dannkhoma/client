@@ -15,6 +15,8 @@ import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -48,6 +50,16 @@ class UserRepositoryImplTest extends Util {
 
         List<User> users = userRepository.fetchUsers("https://jsonplaceholder.typicode.com/users");
         Assertions.assertEquals(Arrays.asList(getUsers()), users);
+    }
+
+    @Test
+    void whenResponseBodyIsEmptyReturnEmptyList(){
+        Mockito
+                .when(restTemplate.getForEntity(URI.create("https://jsonplaceholder.typicode.com/users"), User[].class))
+                .thenReturn(new ResponseEntity<>(null, HttpStatus.OK));
+
+        List<User> users = userRepository.fetchUsers("https://jsonplaceholder.typicode.com/users");
+        Assertions.assertEquals(Collections.emptyList(), users);
     }
 
 
