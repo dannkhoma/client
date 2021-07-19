@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Address implements Serializable {
-    private final static long serialVersionUID = 3764807987013157194L;
+    private static final long serialVersionUID = 3764807987013157194L;
     private String street;
     private String suite;
     private String city;

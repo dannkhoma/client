@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class User implements Serializable {
-    private final static long serialVersionUID = -3065367946765089857L;
+    private static final long serialVersionUID = -3065367946765089857L;
     private Long id;
     private String name;
     private String username;
