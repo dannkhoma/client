@@ -6,6 +6,10 @@ import com.nkhomad.repository.UserRepositoryImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -13,6 +17,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.Arrays;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -46,50 +51,27 @@ class UserServiceImplTest extends Util {
 
     }
 
-    @Test
-    void whenUserIdIsNotNullAndUserNameIsNullReturnMatchingRecordById() {
+    @ParameterizedTest
+    @MethodSource("provideParameters")
+    void whenDifferentParameterCombinationsAreUsedReturnMatchingRecord(final Long id, final String username) {
         Mockito
                 .when(userRepository.fetchUsers(EXTERNAL_SERVICE_URL))
                 .thenReturn(Arrays.asList(getUsers()));
 
-        final UserDTO user = userService.fetchUserByIdentifiers(1L, null);
+        final UserDTO user = userService.fetchUserByIdentifiers(id, username);
 
         assertEquals(user, map(getMockUser()));
     }
 
-    @Test
-    void whenUserIdIsNotNullAndUsernameIsNullAndSearchByIdDoesNotMatchReturnRecordWithMinusOneId() {
+    @ParameterizedTest
+    @MethodSource("provideInvalidParameters")
+    void whenUserParametersDoNotMatchAnyRecordReturnRecordWithMinusOneId(final Long id, final String username) {
 
         Mockito
                 .when(userRepository.fetchUsers(EXTERNAL_SERVICE_URL))
                 .thenReturn(Arrays.asList(getUsers()));
 
-        final UserDTO user = userService.fetchUserByIdentifiers(2L, null);
-
-        assertEquals(user, UserDTO.builder()
-                .id(-1L)
-                .build());
-
-    }
-    @Test
-    void whenUsernameIsNotNullAndUserIdIsNullReturnMatchingRecordByUsername() {
-        Mockito
-                .when(userRepository.fetchUsers(EXTERNAL_SERVICE_URL))
-                .thenReturn(Arrays.asList(getUsers()));
-
-        final UserDTO user = userService.fetchUserByIdentifiers(null, "Bret");
-
-        assertEquals(user, map(getMockUser()));
-    }
-
-    @Test
-    void whenUsernameIsNotNullAndUserIdIsNullAndSearchByUsernameDoesNotMatchReturnRecordWithMinusOneId() {
-
-        Mockito
-                .when(userRepository.fetchUsers(EXTERNAL_SERVICE_URL))
-                .thenReturn(Arrays.asList(getUsers()));
-
-        final UserDTO user = userService.fetchUserByIdentifiers(null, "Brett");
+        final UserDTO user = userService.fetchUserByIdentifiers(id, username);
 
         assertEquals(user, UserDTO.builder()
                 .id(-1L)
@@ -97,57 +79,21 @@ class UserServiceImplTest extends Util {
 
     }
 
-    @Test
-    void whenUsernameIsNotNullAndUserIdIsNotNullReturnMatchingRecord() {
-
-        Mockito
-                .when(userRepository.fetchUsers(EXTERNAL_SERVICE_URL))
-                .thenReturn(Arrays.asList(getUsers()));
-
-        final UserDTO user = userService.fetchUserByIdentifiers(1L, "Bret");
-
-        assertEquals(user, map(getMockUser()));
-
+    private static Stream<Arguments> provideParameters() {
+        return Stream.of(
+                Arguments.of(1L, null),
+                Arguments.of(null, "Bret"),
+                Arguments.of(1L, "Bret"),
+                Arguments.of(1L, "Brett"),
+                Arguments.of(2L, "Bret")
+        );
     }
 
-    @Test
-    void whenUsernameIsNotNullAndUserIdIsNotNullReturnMatchingRecordByMatchingId() {
-
-        Mockito
-                .when(userRepository.fetchUsers(EXTERNAL_SERVICE_URL))
-                .thenReturn(Arrays.asList(getUsers()));
-
-        final UserDTO user = userService.fetchUserByIdentifiers(1L, "Brett");
-
-        assertEquals(user, map(getMockUser()));
-
-    }
-
-    @Test
-    void whenUsernameIsNotNullAndUserIdIsNotNullReturnMatchingRecordByMatchingUsername() {
-
-        Mockito
-                .when(userRepository.fetchUsers(EXTERNAL_SERVICE_URL))
-                .thenReturn(Arrays.asList(getUsers()));
-
-        final UserDTO user = userService.fetchUserByIdentifiers(2L, "Bret");
-
-        assertEquals(user, map(getMockUser()));
-
-    }
-
-    @Test
-    void whenUsernameIsNotNullAndUserIdIsNotNullAndNoMatchIsFoundReturnRecordWithMinusOneId() {
-
-        Mockito
-                .when(userRepository.fetchUsers(EXTERNAL_SERVICE_URL))
-                .thenReturn(Arrays.asList(getUsers()));
-
-        final UserDTO user = userService.fetchUserByIdentifiers(2L, "Brett");
-
-        assertEquals(user, UserDTO.builder()
-                .id(-1L)
-                .build());
-
+    private static Stream<Arguments> provideInvalidParameters() {
+        return Stream.of(
+                Arguments.of(2L, null),
+                Arguments.of(null, "Brett"),
+                Arguments.of(2L, "Brett")
+        );
     }
 }

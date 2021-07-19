@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(MockitoExtension.class)
-public class UserRepositoryImplTest extends Util {
+class UserRepositoryImplTest extends Util {
 
     @Mock
     private RestTemplate restTemplate;
