@@ -4,7 +4,7 @@ jdk:
   -
 env:
   global:
-    - secure: "MNv1Q2zFxrMbdiZvLm1+y3OP6GxzGd7AoSLlB60TNCTaur0nhaEgfQsPyXVb0Ol3sWvsTMSzm29GtJnX9bsoGq3gEcZNNTHSEV3NT3obuzrKO0akT3+0oHF39XYWSsBzYomthVFwI3FE1NZ2lyg+PkiSlgLA/HwA/SkrUDaL6NC/Q2E//5jTZww91E5oJs0LNLEPkoTENEypfs0Qb7wnQueVMNcdCCtqUljP1/1hkvYnPud4xfkTYuW2/lpSjAYvkY80BqM7bV0Upjeg+Mpxzc2MPjW4CoLpXrB6OMphFdOaq1EjQSPGJAXx0/8SboCaBnhymCoBZjpto4JICZTE0xT00K0jO6ifdHLvBMrmOYAlAEKZsewgmYBEBBjc8vW9OQ65cJvrkkbtsHmTRRNArg+CQheP7icO+Im0VCYHfqkDyHDusqDje/IyZRSCJMAJ0G8ybyjF5+Moh9fp7BcpGpUVH90vNk2KpcBS4yMAS4R8O+vhpcWLlFnKljivAZCjZwAaTzodQXqpBzfn7TNCRfVVMaOI3QPWoVdpj9sCVo6cEDYkXNuDGYxMatN10WEZtyiklGv8naXhBN3hy4YyT7SJ8MmovvE4huMA6c3wupgcixa7xusZUro8wOiAYrLjlx8io5xCQXWCZFP1xbsPTeCWOaFrTWDfCKkwHSqzP0c="
+    - secure: "Fb+ukx7IqIKIfh8tXTa+k1jXpl9JgvCumMLXgf/5wG77A4QpsC5vW1VFAWHxGzmWdlpKb20/uF3gN9mJ4v8Wh3Vc/2zACPgRq4KmyC0YDbqQbjkY9vdM6TJnxe1vKK04MsXGEB7oSt+yUduMbaT6znuwkRuDf9qgvldEQG7j97rSDC30ZYxOkRIXoYD65ossAKXmMHe4G4y261QFiYTQqitYkHxhvpLD3lf6I3JIq6z/TXXK4s9XnE0VNuMG9AgqEkqnaT7kyrvFPqRiiSAOnUni9CImmW1KsI+O+wT+hV9BtCVf3FYkSpAwE4RrWVdGOs5V7ToUOtiGURIs96DHLvhXRQbme/RTOEDg/x95cxwJA5C+b/jxPHHg6f9q7mdqMVt7e2/AqpGHEptdoEhSlEYxl0NIOlGZL67CEExUN1lAENnBWWNuQ8yj3e2dlGgTn6DHJ0TDtpKnbqTvk90hXcSg0MTr+ckm/QJSnO67LVvlGVoKCI7reUV+PlAqFnGq10hr0NNnXlpOvvcu0jAnvpqGTgUZpi/BIQFzIltYqOMR2hc00tn3yOqGp0cR3Mgo1BuOAam5sXT8OlQOFxRmr6x+oxl/qYobnVvMRoqaEcxrBNg/eppYJDasNqNrnZwZ3n5qjylUTlASlnxMYS8PUIi/MXYYHmvPNb/00IBjQrc="
 
 addons:
   sonarcloud:
@@ -14,7 +14,7 @@ addons:
 
 script:
   - ./mvnw clean install
-  - ./mvnw clean verify sonar:sonar -Dsonar.projectKey=dannkhoma
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=dannkhoma_client
 
 services:
   - docker
