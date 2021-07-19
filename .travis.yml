@@ -1,5 +1,18 @@
 language: java
 jdk:
   - openjdk11
+env:
+  global:
+   - secure: "jaZ8qfIFm03DCeoTQFudk/ou8sxyDDKMIW0ShVViHLd41kwRtMaH3z3X5mQ15FWTVGgbjxY2FXkgY1SYQaQnUE1WCo8vDwIdWoJRfqGecUc5dtWq/F5oDgbmHeP/ONj7bTV7kLpqv+D6AEO1dNyHbn03GJDn5q5+pHoUDlJlpYpq33yPXOE2ztL6KVMOUb7NTpiNheKjiaTSmdbHmQc0Q7DRT9IOcs415QMpVr14nWjaNc/yLLIVtaHDNBvp1a7zWrE5Ry12zaaxk3gvBO3pp6rXndd58/GemtKUwB+kO+QcIaF/x/wxV/qlAGj4g+spZ3WOPwZmoC4fg+GXXTtfk+WupxsJWXEzdyROsBGI3TxeB6x0pwZvd4AOyVutbAyMBnUTYt52Tk/WsFV1dm3T3Jkx7s/ePabowTKheMM9HYRuhVIWDbiWN4b59TiYJDjGQ+l1OccysI4ofT+eDJA63Xa0iYX5z6lBdk+H8uwyVwpMY17kGnXiVYKA8HimfdPF5wqnMWqwAHF3xafOj5lLFl+NyuPKCQCPEMWjWaZhpSkjazuzmMXZojlD/CB0EfeIuII3aXxrPEnctvAnp8Q9ZYLIEn7j1e3YrnSbX/PZSxEOO44WjbpeMtgJphAiQHcG/w572+2jZ2WcuCxLie5CWB5oXpIArXten+dc8qF8p4M="
+
+addons:
+  sonarcloud:
+    token:
+      secure: $SONAR_TOKEN
+
 script:
   - ./mvnw clean install
+  - ./mvnw clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar
+
+services:
+  - docker
