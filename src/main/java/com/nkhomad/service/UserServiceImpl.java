@@ -28,16 +28,17 @@ public class UserServiceImpl implements UserService {
 
         log.debug("Fetching user information by parameters id {} or username {}", id, username);
 
-        return userRepository.fetchUsers(userUrl)
+        Optional<UserDTO> optionalUserDTO = userRepository.fetchUsers(userUrl)
                 .stream()
                 .filter(user ->
                         isUserIdEqual(id, user.getId()) || isUserNameEqual(username, user.getUsername())
                 )
                 .map(this::map)
-                .findFirst()
-                .or(() -> Optional.of(UserDTO.builder()
-                        .id(Long.valueOf(USER_NOT_FOUND_ID))
-                        .build())).get();
+                .findFirst();
+
+        return optionalUserDTO.orElseGet(() -> UserDTO.builder()
+                .id(Long.valueOf(USER_NOT_FOUND_ID))
+                .build());
 
     }
 
