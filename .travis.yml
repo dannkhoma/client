@@ -8,6 +8,7 @@ env:
 
 addons:
   sonarcloud:
+    organization: "dannkhoma"
     token:
       secure: $SONAR_TOKEN
 
