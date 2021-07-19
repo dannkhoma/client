@@ -90,6 +90,7 @@
                 <configuration>
                 <excludes>
                     <exclude>com/nkhomad/model/*</exclude>
+                    <exclude>com/nkhomad/rest/*</exclude>
                     <exclude>com/nkhomad//*Application</exclude>
                 </excludes>
                 </configuration>
@@ -132,7 +133,7 @@
                                         <limit>
                                             <counter>LINE</counter>
                                             <value>COVEREDRATIO</value>
-                                            <minimum>0.75</minimum>
+                                            <minimum>0.50</minimum>
                                         </limit>
                                     </limits>
                                 </rule>
