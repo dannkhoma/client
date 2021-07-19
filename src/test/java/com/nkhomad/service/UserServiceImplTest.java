@@ -1,6 +1,6 @@
 package com.nkhomad.service;
 
-import com.nkhomad.BaseTest;
+import com.nkhomad.Util;
 import com.nkhomad.model.UserDTO;
 import com.nkhomad.repository.UserRepositoryImpl;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(MockitoExtension.class)
-class UserServiceImplTest extends BaseTest {
+class UserServiceImplTest extends Util {
 
     @Mock
     private UserRepositoryImpl userRepository;
@@ -34,7 +34,7 @@ class UserServiceImplTest extends BaseTest {
     }
 
     @Test
-    public void whenUserIdAndUsernameAreNullThrowIllegalArgumentException() {
+    void whenUserIdAndUsernameAreNullThrowIllegalArgumentException() {
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
             userService.fetchUserByIdentifiers(null, null);
         });
@@ -47,7 +47,7 @@ class UserServiceImplTest extends BaseTest {
     }
 
     @Test
-    public void whenUserIdIsNotNullAndUserNameIsNullReturnMatchingRecordById() {
+    void whenUserIdIsNotNullAndUserNameIsNullReturnMatchingRecordById() {
         Mockito
                 .when(userRepository.fetchUsers(EXTERNAL_SERVICE_URL))
                 .thenReturn(Arrays.asList(getUsers()));
@@ -58,7 +58,7 @@ class UserServiceImplTest extends BaseTest {
     }
 
     @Test
-    public void whenUserIdIsNotNullAndUsernameIsNullAndSearchByIdDoesNotMatchReturnRecordWithMinusOneId() {
+    void whenUserIdIsNotNullAndUsernameIsNullAndSearchByIdDoesNotMatchReturnRecordWithMinusOneId() {
 
         Mockito
                 .when(userRepository.fetchUsers(EXTERNAL_SERVICE_URL))
@@ -72,7 +72,7 @@ class UserServiceImplTest extends BaseTest {
 
     }
     @Test
-    public void whenUsernameIsNotNullAndUserIdIsNullReturnMatchingRecordByUsername() {
+    void whenUsernameIsNotNullAndUserIdIsNullReturnMatchingRecordByUsername() {
         Mockito
                 .when(userRepository.fetchUsers(EXTERNAL_SERVICE_URL))
                 .thenReturn(Arrays.asList(getUsers()));
@@ -83,7 +83,7 @@ class UserServiceImplTest extends BaseTest {
     }
 
     @Test
-    public void whenUsernameIsNotNullAndUserIdIsNullAndSearchByUsernameDoesNotMatchReturnRecordWithMinusOneId() {
+    void whenUsernameIsNotNullAndUserIdIsNullAndSearchByUsernameDoesNotMatchReturnRecordWithMinusOneId() {
 
         Mockito
                 .when(userRepository.fetchUsers(EXTERNAL_SERVICE_URL))
@@ -98,7 +98,7 @@ class UserServiceImplTest extends BaseTest {
     }
 
     @Test
-    public void whenUsernameIsNotNullAndUserIdIsNotNullReturnMatchingRecord() {
+    void whenUsernameIsNotNullAndUserIdIsNotNullReturnMatchingRecord() {
 
         Mockito
                 .when(userRepository.fetchUsers(EXTERNAL_SERVICE_URL))
@@ -111,7 +111,7 @@ class UserServiceImplTest extends BaseTest {
     }
 
     @Test
-    public void whenUsernameIsNotNullAndUserIdIsNotNullReturnMatchingRecordByMatchingId() {
+    void whenUsernameIsNotNullAndUserIdIsNotNullReturnMatchingRecordByMatchingId() {
 
         Mockito
                 .when(userRepository.fetchUsers(EXTERNAL_SERVICE_URL))
@@ -124,7 +124,7 @@ class UserServiceImplTest extends BaseTest {
     }
 
     @Test
-    public void whenUsernameIsNotNullAndUserIdIsNotNullReturnMatchingRecordByMatchingUsername() {
+    void whenUsernameIsNotNullAndUserIdIsNotNullReturnMatchingRecordByMatchingUsername() {
 
         Mockito
                 .when(userRepository.fetchUsers(EXTERNAL_SERVICE_URL))
@@ -137,7 +137,7 @@ class UserServiceImplTest extends BaseTest {
     }
 
     @Test
-    public void whenUsernameIsNotNullAndUserIdIsNotNullAndNoMatchIsFoundReturnRecordWithMinusOneId() {
+    void whenUsernameIsNotNullAndUserIdIsNotNullAndNoMatchIsFoundReturnRecordWithMinusOneId() {
 
         Mockito
                 .when(userRepository.fetchUsers(EXTERNAL_SERVICE_URL))

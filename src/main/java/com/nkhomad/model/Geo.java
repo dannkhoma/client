@@ -14,9 +14,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Geo implements Serializable {
-
+    private final static long serialVersionUID = 5754820180762541454L;
     private String lat;
     private String lng;
-    private final static long serialVersionUID = 5754820180762541454L;
+
 
 }

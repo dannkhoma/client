@@ -15,10 +15,9 @@ import lombok.NoArgsConstructor;
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class Company implements Serializable {
-
+    private final static long serialVersionUID = -2803675965500174697L;
     private String name;
     private String catchPhrase;
     private String bs;
-    private final static long serialVersionUID = -2803675965500174697L;
 
 }

@@ -9,17 +9,17 @@ import com.nkhomad.model.UserDTO;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BaseTest {
+public class Util {
 
     protected static final String EXTERNAL_SERVICE_URL="https://jsonplaceholder.typicode.com/users";
 
-    public User[] getUsers() {
+    protected User[] getUsers() {
         List<User> objects = new ArrayList<>();
         objects.add(getMockUser());
         return objects.toArray(User[]::new);
     }
 
-    public User getMockUser() {
+    protected User getMockUser() {
         return User.builder()
                 .address(Address.builder()
                         .city("Gwenborough")
@@ -46,7 +46,7 @@ public class BaseTest {
     }
 
 
-    public UserDTO map(User user) {
+    protected UserDTO map(User user) {
         return UserDTO.builder()
                 .id(user.getId())
                 .email(user.getEmail())

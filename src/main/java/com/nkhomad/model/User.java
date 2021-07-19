@@ -2,6 +2,7 @@
 package com.nkhomad.model;
 
 import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,6 +15,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class User implements Serializable {
+    private final static long serialVersionUID = -3065367946765089857L;
     private Long id;
     private String name;
     private String username;
@@ -22,6 +24,4 @@ public class User implements Serializable {
     private String phone;
     private String website;
     private Company company;
-    private final static long serialVersionUID = -3065367946765089857L;
-
 }

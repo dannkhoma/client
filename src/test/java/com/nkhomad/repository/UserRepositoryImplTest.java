@@ -1,6 +1,6 @@
 package com.nkhomad.repository;
 
-import com.nkhomad.BaseTest;
+import com.nkhomad.Util;
 import com.nkhomad.model.User;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(MockitoExtension.class)
-public class UserRepositoryImplTest extends BaseTest {
+public class UserRepositoryImplTest extends Util {
 
     @Mock
     private RestTemplate restTemplate;
@@ -30,7 +30,7 @@ public class UserRepositoryImplTest extends BaseTest {
     private UserRepositoryImpl userRepository;
 
     @Test
-    public void whenUserUrlIsNullThrowIllegalArgumentException() {
+    void whenUserUrlIsNullThrowIllegalArgumentException() {
         Exception exception = assertThrows(IllegalArgumentException.class, () -> userRepository.fetchUsers(null));
 
         String expectedMessage = "Url is null";
@@ -41,10 +41,10 @@ public class UserRepositoryImplTest extends BaseTest {
     }
 
     @Test
-    public void whenUserUrlIsValidReturnListOfUsers() {
+    void whenUserUrlIsValidReturnListOfUsers() {
         Mockito
                 .when(restTemplate.getForEntity(URI.create("https://jsonplaceholder.typicode.com/users"), User[].class))
-                .thenReturn(new ResponseEntity(getUsers(), HttpStatus.OK));
+                .thenReturn(new ResponseEntity<>(getUsers(), HttpStatus.OK));
 
         List<User> users = userRepository.fetchUsers("https://jsonplaceholder.typicode.com/users");
         Assertions.assertEquals(Arrays.asList(getUsers()), users);
