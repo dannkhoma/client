@@ -16,7 +16,7 @@ services:
 
 before_install:
   - docker pull dannkhoma/identity
-  - docker run -d -p 127.0.0.1:8000:8000"
+  - docker run -d -p 127.0.0.1:8000:8000
 
 jobs:
   include:
