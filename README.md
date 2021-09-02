@@ -9,7 +9,7 @@ This client is a microservice which is a eureka client and service discovery is 
 3. Docker
 4. Git
 
-##Run Project Manually
+##Run Project
 
 1. Pull docker image for the eureka server project by running
 
@@ -30,5 +30,3 @@ This client is a microservice which is a eureka client and service discovery is 
 5. Run the project using 
    
    ./mvnw spring-boot:run
-
-##Run Project Using Docker
