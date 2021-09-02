@@ -30,3 +30,14 @@ This client is a microservice which is a eureka client and service discovery is 
 5. Run the project using 
    
    ./mvnw spring-boot:run
+
+6. Test the API using the following
+
+   curl --request GET \
+   --url 'http://localhost:8001/getusercontacts?id=1'     OR
+
+   curl --request GET \
+   --url 'http://localhost:8001/getusercontacts?username=Bret'
+
+   curl --request GET \
+   --url 'http://localhost:8001/getusercontacts?id=1&username=Bret'
